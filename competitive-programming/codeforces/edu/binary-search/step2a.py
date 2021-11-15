@@ -1,16 +1,16 @@
-def bin_search_lower(a, x):
-    l, r = -1, len(a)
+def f(x, n, w, h):
+    return (x // h) * (x // w) >= n
+
+
+def main():
+    w, h, n = map(int, input().split())
+    l, r = 0, 10 ** 18
     while l + 1 < r:
         m = (l + r) // 2
-        if a[m] <= x:
-            l = m
-        else:
+        if f(m, n, w, h):
             r = m
-    return l
+        else:
+            l = m
+    print(r)
 
-
-n, k = map(int, input().split())
-array = list(map(int, input().split()))
-
-for x in map(int, input().split()):
-    print(bin_search_lower(array, x) + 1)
+main()
