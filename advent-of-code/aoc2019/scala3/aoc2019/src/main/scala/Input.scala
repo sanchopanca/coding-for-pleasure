@@ -13,3 +13,6 @@ def readCommaSeparatedStrings(filename: String): List[List[String]] =
 
 def readLine(filename: String): String =
   Source.fromFile(filename).getLines.toList.head
+
+def readLines(filename: String): List[String] =
+  Source.fromFile(filename).getLines.toList
