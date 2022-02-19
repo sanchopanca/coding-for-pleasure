@@ -16,7 +16,7 @@ fn ribbon(l: i32, w: i32, h: i32) -> i32 {
     cmp::min(p1, cmp::min(p2, p3)) + l * w * h
 }
 
-fn main() {
+pub fn day02() {
     let dims = fs::read_to_string("../input/02.txt").unwrap();
     let mut p = 0;
     let mut r = 0;
