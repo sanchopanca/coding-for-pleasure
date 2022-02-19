@@ -2,6 +2,7 @@ mod day01;
 mod day02;
 mod day03;
 mod day04;
+mod day05;
 use std::env;
 
 fn main() {
@@ -14,5 +15,7 @@ fn main() {
         day03::day03();
     } else if day == 4 {
         day04::day04();
+    } else if day == 5 {
+        day05::day05();
     }
 }
