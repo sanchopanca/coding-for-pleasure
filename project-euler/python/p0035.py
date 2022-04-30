@@ -21,4 +21,3 @@ for n in primes:
     else:
         res += 1
 print(res)
-    
