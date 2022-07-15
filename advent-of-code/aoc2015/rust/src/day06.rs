@@ -2,11 +2,11 @@ use std::cmp;
 use std::fs;
 
 struct Grid {
-    lights: [[bool; 1000]; 1000],
+    lights: Vec<Vec<bool>>,
 }
 
 struct CoolerGrid {
-    lights: [[i16; 1000]; 1000],  // i16 to avoid stack overlow
+    lights: Vec<Vec<i16>>,
 }
 
 #[derive(Copy, Clone)]
@@ -33,7 +33,7 @@ struct Instruction {
 impl Grid {
     pub fn new() -> Self {
         Self {
-            lights: [[false; 1000]; 1000]
+            lights: vec![vec![false; 1000]; 1000]
         }
     }
 
@@ -51,9 +51,9 @@ impl Grid {
 
     pub fn count(&self) -> i32 {
         let mut c = 0;
-        for row in self.lights {
+        for row in &self.lights {
             for light in row {
-                if light {
+                if *light {
                     c += 1;
                 }
             }
@@ -65,7 +65,7 @@ impl Grid {
 impl CoolerGrid {
     pub fn new() -> Self {
         Self {
-            lights: [[0; 1000]; 1000]
+            lights: vec![vec![0i16; 1000]; 1000]
         }
     }
 
@@ -86,9 +86,9 @@ impl CoolerGrid {
 
     pub fn count(&self) -> i32 {
         let mut c: i32 = 0;
-        for row in self.lights {
+        for row in &self.lights {
             for light in row {
-                c += light as i32;
+                c += *light as i32;
             }
         }
         c
