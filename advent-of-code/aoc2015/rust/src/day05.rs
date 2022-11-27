@@ -19,13 +19,10 @@ fn is_nice(s: &str) -> bool {
         }
     }
 
-    let has_bad_substring = s.contains("ab")
-        || s.contains("cd")
-        || s.contains("pq")
-        || s.contains("xy");
+    let has_bad_substring =
+        s.contains("ab") || s.contains("cd") || s.contains("pq") || s.contains("xy");
 
     vowels >= 3 && has_double && !has_bad_substring
-    
 }
 
 fn is_nice_but_better(s: &str) -> bool {
@@ -37,7 +34,6 @@ fn is_nice_but_better(s: &str) -> bool {
 
     has_two_pairs && has_two_letters
 }
-
 
 pub fn day05() {
     let strings = fs::read_to_string("../input/05.txt").unwrap();

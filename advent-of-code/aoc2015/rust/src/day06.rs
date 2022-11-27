@@ -15,7 +15,6 @@ struct Range {
     y1: usize,
     x2: usize,
     y2: usize,
-
 }
 
 #[derive(Copy, Clone)]
@@ -27,13 +26,13 @@ enum Operation {
 
 struct Instruction {
     operation: Operation,
-    range: Range, 
+    range: Range,
 }
 
 impl Grid {
     pub fn new() -> Self {
         Self {
-            lights: vec![vec![false; 1000]; 1000]
+            lights: vec![vec![false; 1000]; 1000],
         }
     }
 
@@ -65,7 +64,7 @@ impl Grid {
 impl CoolerGrid {
     pub fn new() -> Self {
         Self {
-            lights: vec![vec![0i16; 1000]; 1000]
+            lights: vec![vec![0i16; 1000]; 1000],
         }
     }
 
@@ -97,10 +96,9 @@ impl CoolerGrid {
 
 impl Range {
     pub fn new(x1: usize, y1: usize, x2: usize, y2: usize) -> Self {
-        Self {x1, y1, x2, y2}
+        Self { x1, y1, x2, y2 }
     }
 }
-
 
 pub fn day06() {
     let mut grid = Grid::new();
@@ -124,10 +122,10 @@ pub fn day06() {
             from[0].parse::<usize>().unwrap(),
             from[1].parse::<usize>().unwrap(),
             until[0].parse::<usize>().unwrap(),
-            until[1].parse::<usize>().unwrap()
+            until[1].parse::<usize>().unwrap(),
         );
-        grid.execute(Instruction {operation, range});
-        cooler_grid.execute(Instruction {operation, range});
+        grid.execute(Instruction { operation, range });
+        cooler_grid.execute(Instruction { operation, range });
     }
     println!("{}", grid.count());
     println!("{}", cooler_grid.count());

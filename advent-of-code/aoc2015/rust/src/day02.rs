@@ -1,7 +1,6 @@
 use std::cmp;
 use std::fs;
 
-
 fn paper(l: i32, w: i32, h: i32) -> i32 {
     let s1 = l * w;
     let s2 = w * h;

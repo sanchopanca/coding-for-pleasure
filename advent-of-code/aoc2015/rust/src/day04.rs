@@ -7,19 +7,21 @@ fn md5_subprocess(input: &str) -> String {
     let mut md5sum = Command::new("md5sum")
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
-        .spawn().unwrap();
+        .spawn()
+        .unwrap();
     let stdin = md5sum.stdin.as_mut().unwrap();
     stdin.write_all(input.as_bytes()).unwrap();
     drop(stdin);
 
     let output = md5sum.wait_with_output().unwrap();
     let mut s = str::from_utf8(&output.stdout).unwrap().to_string();
-    s.truncate(32);  // md5sum prints filename in the end
+    s.truncate(32); // md5sum prints filename in the end
     s
 }
 
 #[allow(dead_code)]
-fn slow_part1() { // takes ~5 minutes on my machine
+fn slow_part1() {
+    // takes ~5 minutes on my machine
     let key = "bgvyzdsv".to_string();
     let mut i = 0;
     loop {
@@ -32,7 +34,8 @@ fn slow_part1() { // takes ~5 minutes on my machine
     }
 }
 
-pub fn day04() { // less than a second
+pub fn day04() {
+    // less than a second
     let key = "bgvyzdsv".to_string();
     let mut i = 0;
     let mut found1 = false;
@@ -51,5 +54,3 @@ pub fn day04() { // less than a second
         i += 1;
     }
 }
-
-
