@@ -34,7 +34,7 @@ fn slow_part1() {
     }
 }
 
-pub fn day04() {
+pub fn main() {
     // less than a second
     let key = "bgvyzdsv".to_string();
     let mut i = 0;

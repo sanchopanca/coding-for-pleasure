@@ -35,7 +35,7 @@ fn is_nice_but_better(s: &str) -> bool {
     has_two_pairs && has_two_letters
 }
 
-pub fn day05() {
+pub fn main() {
     let strings = fs::read_to_string("../input/05.txt").unwrap();
     let mut nice = 0;
     let mut nice_but_better = 0;

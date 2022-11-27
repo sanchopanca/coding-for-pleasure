@@ -120,7 +120,7 @@ fn read_input() -> HashMap<String, LHS> {
     env
 }
 
-pub fn day07() {
+pub fn main() {
     let mut env = read_input();
     let a = env["a"].clone();
     let result = match a {

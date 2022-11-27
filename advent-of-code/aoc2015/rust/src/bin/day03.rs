@@ -58,7 +58,7 @@ fn part2() {
     println!("{}", visited.len());
 }
 
-pub fn day03() {
+pub fn main() {
     part1();
     part2();
 }

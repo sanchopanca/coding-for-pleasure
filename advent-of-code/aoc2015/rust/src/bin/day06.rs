@@ -100,7 +100,7 @@ impl Range {
     }
 }
 
-pub fn day06() {
+pub fn main() {
     let mut grid = Grid::new();
     let mut cooler_grid = CoolerGrid::new();
     let instructions = fs::read_to_string("../input/06.txt").unwrap();

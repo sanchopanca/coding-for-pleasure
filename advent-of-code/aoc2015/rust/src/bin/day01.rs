@@ -1,6 +1,6 @@
 use std::fs;
 
-pub fn day01() {
+pub fn main() {
     let directions = fs::read_to_string("../input/01.txt").unwrap();
     let mut floor = 0;
     let mut found = false;
