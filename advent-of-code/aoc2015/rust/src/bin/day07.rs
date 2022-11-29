@@ -62,7 +62,7 @@ fn rshift(op1: &Operand, op2: &Operand, env: &mut HashMap<String, LHS>) -> u16 {
 }
 
 impl Operation {
-    fn execute<'a>(&'a self, env: &mut HashMap<String, LHS>) -> u16 {
+    fn execute(&self, env: &mut HashMap<String, LHS>) -> u16 {
         match self {
             Self::And { op1, op2 } => and(op1, op2, env),
             Self::Or { op1, op2 } => or(op1, op2, env),
@@ -89,8 +89,8 @@ fn read_input() -> HashMap<String, LHS> {
                 Ok(number) => Operand::Literal(number),
             };
             LHS::NonEvaluated(Operation::Not { op })
-        } else if operation.contains("A") || operation.contains("O") || operation.contains("I") {
-            let v: Vec<_> = operation.split(" ").collect();
+        } else if operation.contains('A') || operation.contains('O') || operation.contains('I') {
+            let v: Vec<_> = operation.split(' ').collect();
             let op1 = match v[0].parse() {
                 Err(_) => Operand::Variable(v[0].to_string()),
                 Ok(number) => Operand::Literal(number),

@@ -20,7 +20,7 @@ pub fn main() {
     let mut p = 0;
     let mut r = 0;
     for dim in dims.lines() {
-        let v: Vec<_> = dim.split("x").collect();
+        let v: Vec<_> = dim.split('x').collect();
         let l: i32 = v[0].parse().unwrap();
         let w: i32 = v[1].parse().unwrap();
         let h: i32 = v[2].parse().unwrap();

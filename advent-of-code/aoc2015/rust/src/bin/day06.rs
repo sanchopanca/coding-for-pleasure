@@ -105,19 +105,17 @@ pub fn main() {
     let mut cooler_grid = CoolerGrid::new();
     let instructions = fs::read_to_string("../input/06.txt").unwrap();
     for line in instructions.lines() {
-        let mut words: Vec<_> = line.split(" ").collect();
+        let mut words: Vec<_> = line.split(' ').collect();
         let operation = if words.len() == 4 {
             Operation::Toggle
+        } else if words[1] == "on" {
+            Operation::TurnOn
         } else {
-            if words[1] == "on" {
-                Operation::TurnOn
-            } else {
-                Operation::TurnOff
-            }
+            Operation::TurnOff
         };
-        let until: Vec<_> = words.pop().unwrap().split(",").collect();
+        let until: Vec<_> = words.pop().unwrap().split(',').collect();
         words.pop();
-        let from: Vec<_> = words.pop().unwrap().split(",").collect();
+        let from: Vec<_> = words.pop().unwrap().split(',').collect();
         let range = Range::new(
             from[0].parse::<usize>().unwrap(),
             from[1].parse::<usize>().unwrap(),
