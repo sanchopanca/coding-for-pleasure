@@ -11,7 +11,6 @@ fn md5_subprocess(input: &str) -> String {
         .unwrap();
     let stdin = md5sum.stdin.as_mut().unwrap();
     stdin.write_all(input.as_bytes()).unwrap();
-    drop(stdin);
 
     let output = md5sum.wait_with_output().unwrap();
     let mut s = str::from_utf8(&output.stdout).unwrap().to_string();

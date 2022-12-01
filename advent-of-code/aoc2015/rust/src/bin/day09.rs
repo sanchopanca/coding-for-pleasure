@@ -54,16 +54,15 @@ fn f1(
     } else {
         let mut res = u32::MAX;
         for dest in &rest_of_destinations {
-            match distances.get(&(current_destination.to_owned(), dest.to_owned())) {
-                Some(distance) => {
-                    let mut subset = rest_of_destinations.clone();
-                    subset.remove(dest);
-                    res = cmp::min(
-                        res,
-                        f1(best_score + distance, dest.to_owned(), subset, distances),
-                    )
-                }
-                None => {}
+            if let Some(distance) =
+                distances.get(&(current_destination.to_owned(), dest.to_owned()))
+            {
+                let mut subset = rest_of_destinations.clone();
+                subset.remove(dest);
+                res = cmp::min(
+                    res,
+                    f1(best_score + distance, dest.to_owned(), subset, distances),
+                )
             }
         }
         res
@@ -112,23 +111,21 @@ fn f2(
 ) -> Option<u32> {
     if rest_of_destinations.len() == 1 {
         let dest = rest_of_destinations.iter().next().unwrap();
-        match distances.get(&(current_destination, dest.to_owned())) {
-            Some(distance) => Some(best_score + distance),
-            None => None,
-        }
+        distances
+            .get(&(current_destination, dest.to_owned()))
+            .map(|d| best_score + d)
     } else {
         let mut res = 0;
         for dest in &rest_of_destinations {
-            match distances.get(&(current_destination.to_owned(), dest.to_owned())) {
-                Some(distance) => {
-                    let mut subset = rest_of_destinations.clone();
-                    subset.remove(dest);
-                    res = cmp::max(
-                        res,
-                        f2(best_score + distance, dest.to_owned(), subset, distances).unwrap_or(0),
-                    );
-                }
-                None => {}
+            if let Some(distance) =
+                distances.get(&(current_destination.to_owned(), dest.to_owned()))
+            {
+                let mut subset = rest_of_destinations.clone();
+                subset.remove(dest);
+                res = cmp::max(
+                    res,
+                    f2(best_score + distance, dest.to_owned(), subset, distances).unwrap_or(0),
+                );
             }
         }
         if res == 0 {
