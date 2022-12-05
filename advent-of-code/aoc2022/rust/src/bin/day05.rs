@@ -63,7 +63,7 @@ fn parse_stacks_of_crates(s: &str) -> Vec<Vec<char>> {
 fn parse_unloading_instructions(s: &str) -> Vec<(usize, usize, usize)> {
     let mut res = Vec::new();
     for line in s.lines() {
-        let v: Vec<_> = line.split(" ").collect();
+        let v: Vec<_> = line.split(' ').collect();
         res.push((
             v[1].parse().unwrap(),
             v[3].parse().unwrap(),
