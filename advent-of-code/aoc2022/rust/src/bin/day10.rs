@@ -21,7 +21,6 @@ fn part1() {
         }
         let operand: i32 = line.split(' ').last().unwrap().parse().unwrap();
 
-
         cycle += 1;
         maybe_add(&mut res, cycle, register);
         cycle += 1;
@@ -45,7 +44,6 @@ fn part2() {
         }
         let operand: i32 = line.split(' ').last().unwrap().parse().unwrap();
 
-
         draw(&mut screen, cycle, register);
         cycle += 1;
         draw(&mut screen, cycle, register);
@@ -55,7 +53,6 @@ fn part2() {
     }
     show_screen(&screen);
 }
-
 
 fn maybe_add(res: &mut i32, cycle: usize, register: i32) {
     if (cycle as i32 - 20) % 40 == 0 {
