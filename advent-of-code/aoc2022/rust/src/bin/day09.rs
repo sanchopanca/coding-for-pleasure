@@ -1,7 +1,6 @@
-use std::fs;
-use std::collections::HashSet;
 use itertools::Itertools;
-
+use std::collections::HashSet;
+use std::fs;
 
 #[derive(PartialEq, Eq, Hash, Clone, Copy)]
 struct Position {
@@ -20,12 +19,11 @@ fn main() {
     part2();
 }
 
-
 fn part1() {
     let input = fs::read_to_string("../input/09.txt").unwrap();
     let mut head = Position::new();
     let mut tail = Position::new();
-    
+
     let mut visited_by_tail = HashSet::new();
     visited_by_tail.insert(tail);
     for line in input.lines() {
@@ -37,7 +35,10 @@ fn part1() {
                 "R" => head.x += 1,
                 "U" => head.y += 1,
                 "D" => head.y -= 1,
-                _ => panic!("Only four directions are supported, {} is not one of them", dir),
+                _ => panic!(
+                    "Only four directions are supported, {} is not one of them",
+                    dir
+                ),
             }
             catch_up(&head, &mut tail);
             visited_by_tail.insert(tail);
@@ -50,7 +51,7 @@ fn part2() {
     let input = fs::read_to_string("../input/09.txt").unwrap();
 
     let mut rope = [Position::new(); 10];
-    
+
     let mut visited_by_tail = HashSet::new();
     visited_by_tail.insert(rope[9]);
     for line in input.lines() {
@@ -62,13 +63,16 @@ fn part2() {
                 "R" => rope[0].x += 1,
                 "U" => rope[0].y += 1,
                 "D" => rope[0].y -= 1,
-                _ => panic!("Only four directions are supported, {} is not one of them", dir),
+                _ => panic!(
+                    "Only four directions are supported, {} is not one of them",
+                    dir
+                ),
             }
-            for i in 0..(rope.len()-1) {
+            for i in 0..(rope.len() - 1) {
                 let leading = &rope[i];
-                let mut following = rope[i+1];
+                let mut following = rope[i + 1];
                 catch_up(leading, &mut following);
-                rope[i+1] = following;
+                rope[i + 1] = following;
             }
             visited_by_tail.insert(rope[9]);
         }
@@ -80,7 +84,7 @@ fn catch_up(head: &Position, tail: &mut Position) {
     if (head.x - tail.x).abs() <= 1 && (head.y - tail.y).abs() <= 1 {
         return;
     }
-    
+
     tail.x += (head.x - tail.x).signum();
     tail.y += (head.y - tail.y).signum();
 
