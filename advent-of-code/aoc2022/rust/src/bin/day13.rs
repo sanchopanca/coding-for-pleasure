@@ -1,12 +1,15 @@
-use std::fs;
 use std::cmp;
+use std::fs;
 
 use itertools::Itertools;
 
 use serde_json::Value;
 
 fn main() {
-    let input = fs::read_to_string("../input/13.txt").unwrap().trim().to_owned();
+    let input = fs::read_to_string("../input/13.txt")
+        .unwrap()
+        .trim()
+        .to_owned();
     // let input = fs::read_to_string("13.txt").unwrap().trim().to_owned();
     let mut index = 1;
     let mut res = 0;
@@ -14,7 +17,7 @@ fn main() {
         let (s1, s2) = pair.split('\n').collect_tuple().unwrap();
         let left: Value = serde_json::from_str(s1).unwrap();
         let left = left.as_array().unwrap();
-        
+
         let right: Value = serde_json::from_str(s2).unwrap();
         let right = right.as_array().unwrap();
 
