@@ -8,7 +8,7 @@ struct LeftFinger {
 
 impl LeftFinger {
     fn new() -> Self {
-        LeftFinger {x: 1, y: 1}
+        LeftFinger { x: 1, y: 1 }
     }
 
     fn move_finger(&mut self, c: char) {
@@ -33,15 +33,31 @@ struct RightFinger {
 
 impl RightFinger {
     fn new() -> Self {
-        RightFinger {x: -2, y: 0}
+        RightFinger { x: -2, y: 0 }
     }
 
     fn move_finger(&mut self, c: char) {
         match c {
-            'U' => if Self::within_keyboard(self.x, self.y - 1) { self.y -= 1 },
-            'D' => if Self::within_keyboard(self.x, self.y + 1) { self.y += 1 },
-            'L' => if Self::within_keyboard(self.x - 1, self.y) { self.x -= 1 },
-            'R' => if Self::within_keyboard(self.x + 1, self.y) { self.x += 1 },
+            'U' => {
+                if Self::within_keyboard(self.x, self.y - 1) {
+                    self.y -= 1
+                }
+            }
+            'D' => {
+                if Self::within_keyboard(self.x, self.y + 1) {
+                    self.y += 1
+                }
+            }
+            'L' => {
+                if Self::within_keyboard(self.x - 1, self.y) {
+                    self.x -= 1
+                }
+            }
+            'R' => {
+                if Self::within_keyboard(self.x + 1, self.y) {
+                    self.x += 1
+                }
+            }
             _ => panic!("wrong input: {}", c),
         }
     }
@@ -70,7 +86,6 @@ impl RightFinger {
     }
 }
 
-
 fn main() {
     let commands = read_input_to_lines(2);
     let mut pin1 = String::new();
@@ -81,7 +96,6 @@ fn main() {
         for c in command.chars() {
             left_finger.move_finger(c);
             right_finger.move_finger(c);
-
         }
         pin1.push_str(&format!("{}", left_finger.press()));
         pin2.push(right_finger.press());

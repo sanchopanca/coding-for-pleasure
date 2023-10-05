@@ -1,6 +1,6 @@
+use aoc2016::read_input_to_string;
 use std::collections::HashSet;
 use std::str::FromStr;
-use aoc2016::read_input_to_string;
 
 #[derive(Copy, Clone)]
 enum Direction {
@@ -39,7 +39,7 @@ impl Position {
                 Direction::West => self.x -= 1,
                 Direction::East => self.x += 1,
             }
-            v.push(self.clone());
+            v.push(*self);
         }
         v
     }
@@ -53,7 +53,9 @@ impl FromStr for Command {
     type Err = String;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let letter = s.chars().next()
+        let letter = s
+            .chars()
+            .next()
             .ok_or("Expected a string of length at least 1".to_string())?;
 
         let turn = match letter {
@@ -63,16 +65,13 @@ impl FromStr for Command {
         };
 
         let distance_str = &s[1..];
-        let distance: u32 = distance_str.parse()
+        let distance: u32 = distance_str
+            .parse()
             .map_err(|_| "Failed to parse distance".to_string())?;
 
-        Ok(Command {
-            turn,
-            distance,
-        })
+        Ok(Command { turn, distance })
     }
 }
-
 
 impl Direction {
     pub fn turn_left(&mut self) {

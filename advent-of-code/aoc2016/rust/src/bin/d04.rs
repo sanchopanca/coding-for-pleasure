@@ -20,10 +20,7 @@ fn main() {
 }
 
 fn valid_checksum(room_name: &str, checksum: &str) -> bool {
-    let counter = room_name
-        .replace('-', "")
-        .chars()
-        .collect::<Counter<_>>();
+    let counter = room_name.replace('-', "").chars().collect::<Counter<_>>();
     let correct_checksum = counter
         .k_most_common_ordered(5)
         .iter()
@@ -33,16 +30,15 @@ fn valid_checksum(room_name: &str, checksum: &str) -> bool {
 }
 
 fn decipher(mut s: String, n: i32) -> String {
-    for _ in 0..(n%26) {
-        s = s.chars()
-            .map(|c| {
-                match c {
-                    'a'..='y' => (1 + c as u8) as char,
-                    'z' => 'a',
-                    '-' => ' ',
-                    ' ' => ' ',
-                    _ => panic!("wrong char {}", c),
-                }
+    for _ in 0..(n % 26) {
+        s = s
+            .chars()
+            .map(|c| match c {
+                'a'..='y' => (1 + c as u8) as char,
+                'z' => 'a',
+                '-' => ' ',
+                ' ' => ' ',
+                _ => panic!("wrong char {}", c),
             })
             .collect();
     }
