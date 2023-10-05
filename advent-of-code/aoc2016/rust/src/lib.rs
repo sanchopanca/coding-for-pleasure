@@ -16,6 +16,13 @@ pub fn read_input_to_lines(day: u8) -> Vec<String> {
         .collect()
 }
 
+pub fn read_input_to_char_vectors(day: u8) -> Vec<Vec<char>> {
+    read_input_to_lines(day)
+        .iter()
+        .map(|s| s.chars().collect())
+        .collect()
+}
+
 pub fn transpose<T>(v: &Vec<Vec<T>>) -> Vec<Vec<T>>
 where
     T: Clone,
