@@ -1,5 +1,7 @@
 use std::fs;
 
+use regex::Regex;
+
 pub fn read_input_to_string(day: u8) -> String {
     fs::read_to_string(format!("../input/{:02}.txt", day))
         .unwrap()
@@ -31,4 +33,26 @@ where
     (0..v[0].len())
         .map(|i| v.iter().map(|inner| inner[i].clone()).collect::<Vec<T>>())
         .collect()
+}
+
+pub fn extract_all_numbers<T>(line: &str) -> Vec<T>
+where
+    T: std::str::FromStr,
+    <T as std::str::FromStr>::Err: std::fmt::Debug,
+{
+    let re = Regex::new(r"\d+").unwrap();
+    re.find_iter(line)
+        .map(|m| m.as_str().parse::<T>().unwrap())
+        .collect()
+}
+
+pub fn skewer_numbers<T>(numbers: &[T]) -> T
+where
+    T: std::fmt::Display,
+    T: std::str::FromStr,
+    <T as std::str::FromStr>::Err: std::fmt::Debug,
+{
+    let as_string = numbers.iter().map(|x| x.to_string()).collect::<String>();
+
+    as_string.parse().unwrap()
 }
