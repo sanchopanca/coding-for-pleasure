@@ -56,3 +56,12 @@ where
 
     as_string.parse().unwrap()
 }
+
+pub fn lcm<T>(numbers: &[T]) -> T
+where
+    T: Copy + num::Integer, //     T: std::cmp::PartialOrd + std::ops::Mul<Output = T> + std::ops::Add<Output = T>,
+{
+    numbers
+        .iter()
+        .fold(numbers[0], |a, b| num::integer::lcm(a, *b))
+}
