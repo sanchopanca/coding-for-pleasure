@@ -15,6 +15,7 @@ dependencies = [
 name = "aoc2023"
 version = "0.1.0"
 dependencies = [
+ "bit_reverse",
  "counter",
  "num",
  "regex",
@@ -25,6 +26,12 @@ name = "autocfg"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
+
+[[package]]
+name = "bit_reverse"
+version = "0.1.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "99528ca30abb9495c7e106bf7c3177b257c62040fc0f2909fe470b0f43097296"
 
 [[package]]
 name = "counter"
