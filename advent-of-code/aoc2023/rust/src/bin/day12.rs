@@ -1,70 +1,65 @@
-use std::iter::zip;
-
 use aoc2023::*;
+use memoize::memoize;
 
 fn main() {
-    // part1();
-    part2();
-}
-
-fn part2() {
     let input = read_input_to_lines(12);
 
-    let mut sum = 0;
+    let mut sum1 = 0;
+    let mut sum2 = 0;
     for line in input {
-        let (condition1, condition2) = line.split_once(' ').unwrap();
-        let condition1 = [condition1, condition1, condition1, condition1, condition1].join("?");
-        let condition2 = [condition2, condition2, condition2, condition2, condition2].join(",");
-        let condition2 = condition2
-            .split(',')
-            .map(|s| s.parse::<i32>().unwrap())
-            .collect::<Vec<_>>();
+        let (condition1, template1) = line.split_once(' ').unwrap();
+        let condition2 = [condition1, condition1, condition1, condition1, condition1].join("?");
+        let template2 = [template1, template1, template1, template1, template1].join(",");
+        let template1 = parse_template(template1);
+        let template2 = parse_template(&template2);
 
-        let questions = condition1.chars().filter(|c| *c == '?').count();
-        println!("{condition1}");
+        sum1 += solve(condition1.to_owned(), template1.to_owned());
+        sum2 += solve(condition2.to_owned(), template2.to_owned());
     }
+    println!("{sum1}\n{sum2}");
 }
 
-fn part1() {
-    let input = read_input_to_lines(12);
+fn parse_template(template: &str) -> Vec<usize> {
+    template
+        .split(',')
+        .map(|s| s.parse::<usize>().unwrap())
+        .collect()
+}
+
+#[memoize]
+fn solve(condition: String, numbers: Vec<usize>) -> u64 {
+    if condition.is_empty() {
+        return if numbers.is_empty() { 1 } else { 0 };
+    }
+
+    if numbers.is_empty() {
+        return if condition.contains('#') { 0 } else { 1 };
+    }
 
     let mut sum = 0;
-    for line in input {
-        let (condition1, condition2) = line.split_once(' ').unwrap();
-        let condition2 = condition2
-            .split(',')
-            .map(|s| s.parse::<i32>().unwrap())
-            .collect::<Vec<_>>();
+    let next = condition.chars().next().unwrap();
 
-        let questions = condition1.chars().filter(|c| *c == '?').count();
-        for mask in 0..(1 << questions) {
-            let condition1 = substitute(condition1, mask, questions);
-            if check(&condition1, &condition2) {
-                sum += 1
+    if next == '.' || next == '?' {
+        sum += solve(condition[1..].to_string(), numbers.clone());
+    }
+
+    let first_number = numbers[0];
+
+    if condition.len() >= first_number {
+        let condition_prefix = &condition[..first_number];
+        let is_prefix_valid = condition_prefix.chars().all(|c| c == '#' || c == '?');
+
+        if is_prefix_valid {
+            if condition.len() == first_number {
+                sum += solve(condition[first_number..].to_string(), numbers[1..].to_vec());
+            } else if condition.chars().nth(first_number).unwrap() != '#' {
+                sum += solve(
+                    condition[first_number + 1..].to_string(),
+                    numbers[1..].to_vec(),
+                );
             }
         }
     }
-    println!("Part 1: {}", sum);
-}
 
-fn check(condition1: &str, condition2: &[i32]) -> bool {
-    let broken_segements = condition1
-        .split('.')
-        .filter(|s| !s.is_empty())
-        .collect::<Vec<_>>();
-    if broken_segements.len() != condition2.len() {
-        return false;
-    }
-
-    zip(broken_segements, condition2).all(|(a, b)| a.len() == *b as usize)
-}
-
-fn substitute(condition: &str, mut mask: u32, len: usize) -> String {
-    let mut condition = condition.to_owned();
-    for _ in 0..len {
-        let to = if (mask & 1) == 1 { "#" } else { "." };
-        condition = condition.replacen('?', to, 1);
-        mask >>= 1;
-    }
-    condition
+    sum
 }
