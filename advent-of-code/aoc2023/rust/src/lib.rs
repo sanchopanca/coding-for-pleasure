@@ -65,3 +65,9 @@ where
         .iter()
         .fold(numbers[0], |a, b| num::integer::lcm(a, *b))
 }
+
+pub fn pretty_print(v: &[Vec<char>]) {
+    for row in v {
+        println!("{}", row.iter().collect::<String>());
+    }
+}
