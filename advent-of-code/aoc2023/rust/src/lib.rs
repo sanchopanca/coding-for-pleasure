@@ -12,8 +12,8 @@ pub fn read_input_to_string(day: u8) -> String {
 pub fn read_input_to_lines(day: u8) -> Vec<String> {
     fs::read_to_string(format!("../input/{:02}.txt", day))
         .unwrap()
+        .trim_end()
         .split('\n')
-        .filter(|s| !s.is_empty())
         .map(|s| s.trim().to_owned())
         .collect()
 }
