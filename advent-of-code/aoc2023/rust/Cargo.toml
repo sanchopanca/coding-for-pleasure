@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 bit_reverse = "0.1.8"
 counter = "0.5.7"
+for-else = "0.2.0"
 memoize = "0.4.1"
 num = "0.4.1"
 regex = "1.10.2"

@@ -71,3 +71,18 @@ pub fn pretty_print(v: &[Vec<char>]) {
         println!("{}", row.iter().collect::<String>());
     }
 }
+
+pub fn pretty_print_numbers<T>(v: &[Vec<T>])
+where
+    T: std::fmt::Display,
+{
+    for row in v {
+        println!(
+            "{}",
+            row.iter()
+                .map(|x| x.to_string())
+                .collect::<Vec<_>>()
+                .join("\t")
+        );
+    }
+}
