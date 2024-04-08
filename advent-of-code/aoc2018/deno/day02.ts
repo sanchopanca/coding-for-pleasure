@@ -1,3 +1,5 @@
+import { readArrayOfStrings } from "./lib.ts";
+
 export function part1(ids: string[]) {
   let [pairs, triplets] = [0, 0];
   for (const id of ids) {
@@ -52,15 +54,6 @@ function commonChars(s1: string, s2: string) {
     }
   }
   return result.join("");
-}
-
-function readArrayOfStrings(day: number) {
-  console.assert(day > 0 && day <= 25);
-  const padded = `${day}`.padStart(2, "0");
-  const input = Deno.readTextFileSync(`../input/${padded}.txt`);
-  return input
-    .trim()
-    .split("\n");
 }
 
 if (import.meta.main) {
