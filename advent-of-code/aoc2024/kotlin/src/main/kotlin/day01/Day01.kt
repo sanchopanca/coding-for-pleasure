@@ -4,55 +4,37 @@ import java.io.File
 import kotlin.math.abs
 
 fun main() {
-    part1()
-    part2()
+    val lines = File("../input/01.txt").readLines()
+    part1(lines)
+    part2(lines)
 }
 
-fun part1() {
-    val lines = File("../input/01.txt").readLines()
-    val list1 = mutableListOf<Int>()
-    val list2 = mutableListOf<Int>()
-    for (line in lines) {
-        val numbers = line.split("\\s+".toRegex())
-        list1.addLast(numbers[0].toInt())
-        list2.addLast(numbers[1].toInt())
-    }
-    list1.sort()
-    list2.sort()
-
-    var diff = 0
-    for (i in 0 ..< list1.size) {
-        diff += abs(list1[i] - list2[i])
+fun part1(lines: List<String>) {
+    val numbers = lines.map { line ->
+        line.split("\\s+".toRegex()).map(String::toInt)
     }
 
-    println(diff)
+    val primaryNumbers = numbers.map { it[0] }.sorted()
+    val secondaryNumbers = numbers.map { it[1] }.sorted()
+
+    val difference = primaryNumbers.indices.sumOf { abs(primaryNumbers[it] - secondaryNumbers[it]) }
+
+    println(difference)
 }
 
-fun part2() {
-    val lines = File("../input/01.txt").readLines()
-    val map1 = mutableMapOf<Int, Int>()
-    val map2 = mutableMapOf<Int, Int>()
+fun part2(lines: List<String>) {
+    val frequencyMap1 = mutableMapOf<Int, Int>()
+    val frequencyMap2 = mutableMapOf<Int, Int>()
 
-    for (line in lines) {
-        val numbers = line.split("\\s+".toRegex())
-        val n1 = numbers[0].toInt()
-        val n2 = numbers[1].toInt()
-        if (n1 in map1) {
-            map1[n1] = map1[n1]!! + 1
-        } else {
-            map1[n1] = 1
-        }
-
-        if (n2 in map2) {
-            map2[n2] = map2[n2]!! + 1
-        } else {
-            map2[n2] = 1
-        }
+    lines.forEach { line ->
+        val (n1, n2) = line.split("\\s+".toRegex()).map(String::toInt)
+        frequencyMap1[n1] = frequencyMap1.getOrDefault(n1, 0) + 1
+        frequencyMap2[n2] = frequencyMap2.getOrDefault(n2, 0) + 1
     }
 
-    var simScore = 0
-    for ((number, times) in map1) {
-        simScore += times * number * map2.getOrDefault(number, 0)
+    val similarityScore = frequencyMap1.entries.sumOf { (number, count) ->
+        count * number * frequencyMap2.getOrDefault(number, 0)
     }
-    println(simScore)
+
+    println(similarityScore)
 }
