@@ -1,3 +1,5 @@
+pub mod intcode;
+
 use std::fs;
 
 use regex::Regex;
