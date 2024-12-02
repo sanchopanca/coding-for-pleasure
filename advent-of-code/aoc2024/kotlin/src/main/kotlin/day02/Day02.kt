@@ -23,14 +23,8 @@ fun part1(numbers: List<List<Int>>) {
 }
 
 fun part2(reports: List<List<Int>>) {
-    var safe = 0
-    for (report in reports) {
-        for (fixedReport in combinations(report)) {
-            if (safe(fixedReport)) {
-                safe++
-                break
-            }
-        }
+    val safe = reports.count { report ->
+        combinations(report).any { safe(it) }
     }
     println(safe)
 }
@@ -52,11 +46,7 @@ fun safe(numbers: List<Int>): Boolean {
 }
 
 fun combinations(numbers: List<Int>): List<List<Int>> {
-    val result = mutableListOf<List<Int>>()
-    for (i in numbers.indices) {
-        val l = numbers.toMutableList()
-        l.removeAt(i)
-        result.add(l)
+    return List(numbers.size) { i ->
+        numbers.filterIndexed { j, _ -> j != i }
     }
-    return result
 }
