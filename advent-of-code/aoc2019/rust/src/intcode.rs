@@ -1,12 +1,21 @@
 pub struct VM {
-    mem: Vec<usize>,
+    mem: Vec<i64>,
     ip: usize,
 }
 
 mod opcodes {
-    pub const ADD: usize = 1;
-    pub const MUL: usize = 2;
-    pub const HALT: usize = 99;
+    pub const ADD: i64 = 1;
+    pub const MUL: i64 = 2;
+    pub const HALT: i64 = 99;
+}
+
+macro_rules! addr {
+    ($n:expr) => {{
+        if $n < 0 {
+            panic!("Negative address {}", $n);
+        }
+        $n as usize
+    }};
 }
 
 use opcodes::*;
@@ -14,7 +23,7 @@ use opcodes::*;
 impl VM {
     pub fn load_program(day: u8) -> Self {
         let data = crate::read_input_to_string(day);
-        let mem: Vec<usize> = data.split(',').map(|x| x.parse().unwrap()).collect();
+        let mem: Vec<i64> = data.split(',').map(|x| x.parse().unwrap()).collect();
 
         Self { mem, ip: 0 }
     }
@@ -26,10 +35,10 @@ impl VM {
             };
             match opcode {
                 ADD => {
-                    self.mem[p3] = self.mem[p1] + self.mem[p2];
+                    self.mem[addr!(p3)] = self.mem[addr!(p1)] + self.mem[addr!(p2)];
                 }
                 MUL => {
-                    self.mem[p3] = self.mem[p1] * self.mem[p2];
+                    self.mem[addr!(p3)] = self.mem[addr!(p1)] * self.mem[addr!(p2)];
                 }
                 HALT => {
                     break;
@@ -40,11 +49,11 @@ impl VM {
         }
     }
 
-    pub fn get(&self, address: usize) -> usize {
+    pub fn get(&self, address: usize) -> i64 {
         self.mem[address]
     }
 
-    pub fn set(&mut self, address: usize, value: usize) {
+    pub fn set(&mut self, address: usize, value: i64) {
         self.mem[address] = value;
     }
 }
