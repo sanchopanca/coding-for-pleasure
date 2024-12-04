@@ -1,8 +1,6 @@
 package engineer.kovalev.day04
 
 import java.io.File
-import kotlin.math.max
-import kotlin.math.min
 
 fun main() {
     part1()
@@ -11,108 +9,57 @@ fun main() {
 
 fun part1() {
     val lines = File("../input/04.txt").readLines()
-    var res = 0
-    for (i in lines.indices) {
-        for (j in lines[i].indices) {
-            res += findWords(lines, i, j, 4).count { it == "XMAS" }
+    val targetWord = "XMAS"
+    val result = lines.indices.sumOf { i ->
+        lines[i].indices.sumOf { j ->
+            findWords(lines, i, j, targetWord.length).count { it == targetWord }
         }
     }
-    println(res)
+    println(result)
 }
 
 fun part2() {
     val lines = File("../input/04.txt").readLines()
-    var res = 0
-    for (i in 1..<lines.size - 1) {
-        for (j in 1..<lines[i].length - 1) {
-            if (lines[i][j] != 'A') {
-                continue
-            }
-
-            val primaryDiagonal = (lines[i-1][j-1] == 'M' && lines[i+1][j+1] == 'S') || (lines[i-1][j-1] == 'S' && lines[i+1][j+1] == 'M')
-            if (!primaryDiagonal) {
-                continue
-            }
-
-            val secondaryDiagonal = (lines[i-1][j+1] == 'M' && lines[i+1][j-1] == 'S') || (lines[i-1][j+1] == 'S' && lines[i+1][j-1] == 'M')
-            if (secondaryDiagonal) {
-                res++
-            }
+    val result = (1 ..< lines.size - 1).sumOf { i ->
+        (1 ..< lines[i].length - 1).count { j ->
+            lines[i][j] == 'A' &&
+                    isDiagonalMatch(lines, i, j)
         }
     }
-    println(res)
+    println(result)
+}
+
+fun isDiagonalMatch(lines: List<String>, row: Int, col: Int): Boolean {
+    val primary = (lines[row - 1][col - 1] == 'M' && lines[row + 1][col + 1] == 'S') ||
+            (lines[row - 1][col - 1] == 'S' && lines[row + 1][col + 1] == 'M')
+    val secondary = (lines[row - 1][col + 1] == 'M' && lines[row + 1][col - 1] == 'S') ||
+            (lines[row - 1][col + 1] == 'S' && lines[row + 1][col - 1] == 'M')
+    return primary && secondary
 }
 
 fun findWords(lines: List<String>, row: Int, col: Int, len: Int): List<String> {
-    val words = mutableListOf<String>()
+    val directions = listOf(
+        Pair(-1, 0), // UP
+        Pair(0, 1),  // RIGHT
+        Pair(1, 0),  // DOWN
+        Pair(0, -1), // LEFT
+        Pair(-1, 1), // UP-RIGHT
+        Pair(1, 1),  // DOWN-RIGHT
+        Pair(1, -1), // DOWN-LEFT
+        Pair(-1, -1) // UP-LEFT
+    )
 
-    // UP
-    var word = ""
-    for (i in row downTo max(0, row - len + 1)) {
-        word += lines[i][col]
+    return directions.map { (dr, dc) ->
+        StringBuilder().apply {
+            for (step in 0 ..< len) {
+                val newRow = row + step * dr
+                val newCol = col + step * dc
+                if (newRow in lines.indices && newCol in lines[newRow].indices) {
+                    append(lines[newRow][newCol])
+                } else {
+                    break
+                }
+            }
+        }.toString()
     }
-    words.add(word)
-
-    // RIGHT
-    words.add(lines[row].substring(col, min(lines[row].length, col + 4)))
-
-    // DOWN
-    word = ""
-    for (i in row .. min(lines.size - 1, row + len - 1)) {
-        word += lines[i][col]
-    }
-    words.add(word)
-
-    // LEFT
-    word = ""
-    for (j in col downTo max(0, col - len + 1)) {
-        word += lines[row][j]
-    }
-    words.add(word)
-
-    // UP-RIGHT
-    word = ""
-    for (idx in 0..< len) {
-        if ((row - idx) >= 0 && (col + idx) < lines[row - idx].length) {
-            word += lines[row-idx][col+idx]
-        } else {
-            break
-        }
-    }
-    words.add(word)
-
-    // DOWN-RIGHT
-    word = ""
-    for (idx in 0..< len) {
-        if ((row + idx) < lines.size && (col + idx) < lines[row + idx].length) {
-            word += lines[row+idx][col+idx]
-        } else {
-            break
-        }
-    }
-    words.add(word)
-
-    // DOWN-LEFT
-    word = ""
-    for (idx in 0..< len) {
-        if ((row + idx) < lines.size && (col - idx) >= 0) {
-            word += lines[row+idx][col-idx]
-        } else {
-            break
-        }
-    }
-    words.add(word)
-
-    // UP-LEFT
-    word = ""
-    for (idx in 0..< len) {
-        if ((row - idx) >= 0 && (col - idx) >= 0) {
-            word += lines[row-idx][col-idx]
-        } else {
-            break
-        }
-    }
-    words.add(word)
-
-    return words
 }
