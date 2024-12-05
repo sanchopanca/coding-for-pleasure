@@ -49,13 +49,7 @@ fun reorder(job: List<Int>, rules: List<Rule>): List<Int> {
     return newJob
 }
 
-fun toMap(list: List<Int>): Map<Int, Int> {
-    val map = mutableMapOf<Int, Int>()
-    for (i in list.indices) {
-        map[list[i]] = i
-    }
-    return map
-}
+fun toMap(list: List<Int>): Map<Int, Int> = list.withIndex().associate { it.value to it.index }
 
 fun ruleHolds(job: Map<Int, Int>, rule: Rule): Boolean {
     val containsBoth = job.contains(rule.before) && job.contains(rule.after)
