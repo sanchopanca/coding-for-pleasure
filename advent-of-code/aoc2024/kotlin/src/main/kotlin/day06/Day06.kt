@@ -56,9 +56,10 @@ fun part1(path: String): Pair<Set<Pair<Int, Int>>, Pair<Int, Int>> {
 }
 
 fun part2(path: String, obstacles: Set<Pair<Int, Int>>, starting: Pair<Int, Int>) {
+    val originalMap = File(path).readLines()
     var result = 0
     loop@ for ((ox, oy) in obstacles) {
-        val map = File(path).readLines().toMutableList()
+        val map = originalMap.toMutableList()
         map[ox] = map[ox].replaceCharAt(oy, '#')
 
         val visited = mutableSetOf<Pair<Pair<Int, Int>, Pair<Int, Int>>>()
