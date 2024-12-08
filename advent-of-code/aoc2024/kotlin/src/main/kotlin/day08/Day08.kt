@@ -3,32 +3,32 @@ package engineer.kovalev.day08
 import java.io.File
 
 fun main() {
-    part1()
-    part2()
+    val map = File("../input/08.txt").readLines()
+    part1(map)
+    part2(map)
 }
 
 data class Location(val x: Int, val y: Int)
 
-fun part1() {
-    val map = File("../input/08.txt").readLines()
-
+fun getAntennas(map: List<String>): Map<Char, MutableList<Location>> {
     val antennas = mutableMapOf<Char, MutableList<Location>>()
 
     for (x in map.indices) {
         for (y in map[x].indices) {
             val c = map[x][y]
             if (c != '.') {
-                if (antennas.contains(c)) {
-                    antennas[c]!!.add(Location(x, y))
-                } else {
-                    antennas[c] = mutableListOf(Location(x, y))
-                }
+                antennas.computeIfAbsent(c) { mutableListOf() }.add(Location(x, y))
             }
         }
     }
+    return antennas
+}
+
+fun part1(map: List<String>) {
+    val antennas = getAntennas(map)
 
     val antinodes = mutableSetOf<Location>()
-    for ((c, locations) in antennas) {
+    for ((_, locations) in antennas) {
         for (i in locations.indices) {
             for (j in i+1..<locations.size) {
                 val (x1, y1) = locations[i]
@@ -50,26 +50,11 @@ fun part1() {
     println(antinodes.size)
 }
 
-fun part2() {
-    val map = File("../input/08.txt").readLines()
-
-    val antennas = mutableMapOf<Char, MutableList<Location>>()
-
-    for (x in map.indices) {
-        for (y in map[x].indices) {
-            val c = map[x][y]
-            if (c != '.') {
-                if (antennas.contains(c)) {
-                    antennas[c]!!.add(Location(x, y))
-                } else {
-                    antennas[c] = mutableListOf(Location(x, y))
-                }
-            }
-        }
-    }
+fun part2(map: List<String>) {
+    val antennas = getAntennas(map)
 
     val antinodes = mutableSetOf<Location>()
-    for ((c, locations) in antennas) {
+    for ((_, locations) in antennas) {
         for (i in locations.indices) {
             for (j in i+1..<locations.size) {
                 var (x1, y1) = locations[i]
