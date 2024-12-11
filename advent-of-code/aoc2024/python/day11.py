@@ -18,6 +18,5 @@ def solve(n, steps):
 if __name__ == "__main__":
     with open("../input/11.txt") as f:
         numbers = list(map(int, f.readline().split(" ")))
-        print(numbers)
         print(sum(solve(n, 25) for n in numbers))
         print(sum(solve(n, 75) for n in numbers))
