@@ -5,30 +5,49 @@ import java.util.PriorityQueue
 
 fun main() {
     part1()
+    part2()
 }
 
 fun part1() {
     val map = File("../input/16.txt").readLines()
-    var (sX, sY) = 0 to 0
-    var (eX, eY) = 0 to 0
+    val (start, end) = findStartAndEnd(map)
+
+    val result = dijkstraForShortestPath(map, start.first, start.second, end.first, end.second)
+    println("Shortest path score: $result.first")
+}
+
+fun part2() {
+    val map = File("../input/16.txt").readLines()
+    val (start, end) = findStartAndEnd(map)
+
+    val (_, paths) = dijkstraForShortestPath(map, start.first, start.second, end.first, end.second)
+    val uniqueTiles = paths.flatten().toSet().size
+    println("Total unique tiles visited by all shortest paths: $uniqueTiles")
+}
+
+fun findStartAndEnd(map: List<String>): Pair<Pair<Int, Int>, Pair<Int, Int>> {
+    var start = 0 to 0
+    var end = 0 to 0
+
     for ((y, line) in map.withIndex()) {
         for ((x, c) in line.withIndex()) {
-            if (c == 'S') {
-                sX = x
-                sY = y
-            }
-            if (c == 'E') {
-                eX = x
-                eY = y
+            when (c) {
+                'S' -> start = x to y
+                'E' -> end = x to y
             }
         }
     }
 
-    val result = findShortestPath(map, sX, sY, eX, eY)
-    println("Shortest path score: $result")
+    return start to end
 }
 
-fun findShortestPath(map: List<String>, startX: Int, startY: Int, endX: Int, endY: Int): Int {
+fun dijkstraForShortestPath(
+    map: List<String>,
+    startX: Int,
+    startY: Int,
+    endX: Int,
+    endY: Int
+): Pair<Int, List<Set<Pair<Int, Int>>>> {
     val directions = listOf(
         Pair(0, -1), // North
         Pair(1, 0),  // East
@@ -36,45 +55,84 @@ fun findShortestPath(map: List<String>, startX: Int, startY: Int, endX: Int, end
         Pair(-1, 0)  // West
     )
 
-    data class State(val x: Int, val y: Int, val direction: Int, val score: Int)
+    data class State(val x: Int, val y: Int, val direction: Int, val score: Int, val path: Set<Pair<Int, Int>>)
 
     val rows = map.size
     val cols = map[0].length
-    val visited = Array(rows) { Array(cols) { BooleanArray(4) } }
+
+    // Minimum scores to reach each state (x, y, direction)
+    val minScores = Array(rows) { Array(cols) { IntArray(4) { Int.MAX_VALUE } } }
+    val allPaths = mutableListOf<Set<Pair<Int, Int>>>()
 
     val priorityQueue = PriorityQueue<State>(compareBy { it.score })
-    priorityQueue.add(State(startX, startY, 1, 0)) // Start facing East
+    priorityQueue.add(State(startX, startY, 1, 0, setOf(startX to startY))) // Start facing East
+    var shortestCost = Int.MAX_VALUE
 
     while (priorityQueue.isNotEmpty()) {
         val current = priorityQueue.poll()
 
+        // Stop processing if the score exceeds the shortest cost found
+        if (current.score > shortestCost) break
+
+        // Update shortest cost if we reach the endpoint
         if (current.x == endX && current.y == endY) {
-            return current.score // Reached the destination
+            shortestCost = current.score
+            allPaths.add(current.path) // Add this path
+            continue
         }
 
-        if (visited[current.y][current.x][current.direction]) continue
-        visited[current.y][current.x][current.direction] = true
+        // Skip if we've already found a cheaper path to this state
+        if (current.score > minScores[current.y][current.x][current.direction]) continue
 
-        // Move forward
+        // Update the minimum score for this state
+        minScores[current.y][current.x][current.direction] = current.score
+
+        // Explore all possible moves
         val (dx, dy) = directions[current.direction]
         val nextX = current.x + dx
         val nextY = current.y + dy
+
+        // Move forward
         if (nextX in 0 until cols && nextY in 0 until rows && map[nextY][nextX] != '#') {
-            priorityQueue.add(State(nextX, nextY, current.direction, current.score + 1))
+            priorityQueue.add(
+                State(
+                    nextX,
+                    nextY,
+                    current.direction,
+                    current.score + 1,
+                    current.path + (nextX to nextY)
+                )
+            )
         }
 
         // Rotate clockwise
         val clockwiseDir = (current.direction + 1) % 4
-        if (!visited[current.y][current.x][clockwiseDir]) {
-            priorityQueue.add(State(current.x, current.y, clockwiseDir, current.score + 1000))
+        if (current.score + 1000 <= shortestCost) {
+            priorityQueue.add(
+                State(
+                    current.x,
+                    current.y,
+                    clockwiseDir,
+                    current.score + 1000,
+                    current.path
+                )
+            )
         }
 
         // Rotate counterclockwise
         val counterClockwiseDir = (current.direction + 3) % 4
-        if (!visited[current.y][current.x][counterClockwiseDir]) {
-            priorityQueue.add(State(current.x, current.y, counterClockwiseDir, current.score + 1000))
+        if (current.score + 1000 <= shortestCost) {
+            priorityQueue.add(
+                State(
+                    current.x,
+                    current.y,
+                    counterClockwiseDir,
+                    current.score + 1000,
+                    current.path
+                )
+            )
         }
     }
 
-    return -1 // No path found
+    return shortestCost to allPaths
 }
