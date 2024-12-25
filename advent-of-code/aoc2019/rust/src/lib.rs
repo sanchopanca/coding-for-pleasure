@@ -1,6 +1,6 @@
 pub mod intcode;
 
-use std::fs;
+use std::{fs, io::Write};
 
 use regex::Regex;
 
@@ -87,4 +87,17 @@ where
                 .join("\t")
         );
     }
+}
+
+pub fn input<T>(prompt: &str) -> T
+where
+    T: std::fmt::Display,
+    T: std::str::FromStr,
+    <T as std::str::FromStr>::Err: std::fmt::Debug,
+{
+    print!("{prompt} > ");
+    std::io::stdout().flush().unwrap();
+    let mut line = String::new();
+    std::io::stdin().read_line(&mut line).unwrap();
+    line.trim().parse().unwrap()
 }
