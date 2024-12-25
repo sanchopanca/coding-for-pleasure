@@ -12,15 +12,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "aoc2019"
-version = "0.1.0"
-dependencies = [
- "aoc_utils",
- "num",
- "regex",
-]
-
-[[package]]
 name = "aoc_utils"
 version = "0.1.0"
 dependencies = [

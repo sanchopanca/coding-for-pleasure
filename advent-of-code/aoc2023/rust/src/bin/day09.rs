@@ -1,4 +1,4 @@
-use aoc2023::*;
+use aoc_utils::*;
 
 fn main() {
     let input = read_input_to_lines(99);

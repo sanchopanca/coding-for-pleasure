@@ -1,4 +1,4 @@
-use aoc2023::*;
+use aoc_utils::*;
 
 fn main() {
     let image = read_input_to_char_vectors(11);

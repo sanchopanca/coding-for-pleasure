@@ -4,7 +4,7 @@ use std::{
     str::FromStr,
 };
 
-use aoc2023::*;
+use aoc_utils::*;
 use regex::Regex;
 
 fn main() {

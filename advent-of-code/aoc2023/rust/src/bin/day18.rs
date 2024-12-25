@@ -1,6 +1,6 @@
 use std::{collections::HashMap, ops::RangeInclusive};
 
-use aoc2023::*;
+use aoc_utils::*;
 
 fn main() {
     solve(parse_part1);

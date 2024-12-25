@@ -1,3 +1,5 @@
+use aoc_utils::{input, read_input_to_string};
+
 pub struct VM {
     mem: Vec<i64>,
     ip: usize,
@@ -57,7 +59,7 @@ use opcodes::*;
 
 impl VM {
     pub fn load_program(day: u8) -> Self {
-        let data = crate::read_input_to_string(day);
+        let data = read_input_to_string(day);
         let mem: Vec<i64> = data.split(',').map(|x| x.parse().unwrap()).collect();
 
         Self { mem, ip: 0 }
@@ -99,7 +101,7 @@ impl VM {
                     let p = [self.mem[self.ip + 1]];
                     match opcode {
                         INP => {
-                            let n: i64 = crate::input("Enter a number");
+                            let n: i64 = input("Enter a number");
                             self.mem[addr!(p[0])] = n;
                         }
                         OUT => {

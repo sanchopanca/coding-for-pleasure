@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use aoc2023::*;
+use aoc_utils::*;
 use regex::Regex;
 
 fn main() {

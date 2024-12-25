@@ -1,4 +1,4 @@
-use aoc2023::*;
+use aoc_utils::*;
 
 fn main() {
     part1();

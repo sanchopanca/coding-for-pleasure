@@ -1,4 +1,4 @@
-use aoc2023::*;
+use aoc_utils::*;
 
 #[derive(Debug, Clone, Copy)]
 struct Number {

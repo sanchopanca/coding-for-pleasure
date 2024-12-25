@@ -1,4 +1,4 @@
-use std::fs;
+use std::{fs, io::Write};
 
 use regex::Regex;
 
@@ -25,7 +25,7 @@ pub fn read_input_to_char_vectors(day: u8) -> Vec<Vec<char>> {
         .collect()
 }
 
-pub fn transpose<T>(v: &Vec<Vec<T>>) -> Vec<Vec<T>>
+pub fn transpose<T>(v: &[Vec<T>]) -> Vec<Vec<T>>
 where
     T: Clone,
 {
@@ -85,4 +85,17 @@ where
                 .join("\t")
         );
     }
+}
+
+pub fn input<T>(prompt: &str) -> T
+where
+    T: std::fmt::Display,
+    T: std::str::FromStr,
+    <T as std::str::FromStr>::Err: std::fmt::Debug,
+{
+    print!("{prompt} > ");
+    std::io::stdout().flush().unwrap();
+    let mut line = String::new();
+    std::io::stdin().read_line(&mut line).unwrap();
+    line.trim().parse().unwrap()
 }

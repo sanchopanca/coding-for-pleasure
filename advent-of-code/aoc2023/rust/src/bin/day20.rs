@@ -1,6 +1,6 @@
 use std::collections::{HashMap, VecDeque};
 
-use aoc2023::*;
+use aoc_utils::*;
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 enum Signal {
