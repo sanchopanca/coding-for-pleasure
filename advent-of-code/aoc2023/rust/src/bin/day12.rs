@@ -2,7 +2,7 @@ use aoc_utils::*;
 use memoize::memoize;
 
 fn main() {
-    let input = read_input_to_lines(12);
+    let input = read_input_to_lines(aoc(12));
 
     let mut sum1 = 0;
     let mut sum2 = 0;

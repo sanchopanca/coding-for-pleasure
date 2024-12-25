@@ -1,10 +1,12 @@
+use aoc_utils::*;
+
 fn main() {
     part1();
     part2();
 }
 
 fn part1() {
-    let numbers: Vec<u32> = aoc_utils::read_input_to_lines(1)
+    let numbers: Vec<u32> = read_input_to_lines(aoc(1))
         .iter()
         .map(|x| x.parse().unwrap())
         .collect();
@@ -14,7 +16,7 @@ fn part1() {
 }
 
 fn part2() {
-    let numbers: Vec<i32> = aoc_utils::read_input_to_lines(1)
+    let numbers: Vec<i32> = read_input_to_lines(aoc(1))
         .iter()
         .map(|x| x.parse().unwrap())
         .collect();

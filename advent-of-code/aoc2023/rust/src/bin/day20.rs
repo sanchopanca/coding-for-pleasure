@@ -116,7 +116,7 @@ impl Module for Output {
 }
 
 fn main() {
-    let input = read_input_to_lines(20);
+    let input = read_input_to_lines(aoc(20));
 
     let input = input
         .into_iter()

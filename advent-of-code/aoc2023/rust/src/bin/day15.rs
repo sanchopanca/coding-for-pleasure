@@ -6,7 +6,7 @@ fn main() {
 }
 
 fn part1() {
-    let input = read_input_to_string(15);
+    let input = read_input_to_string(aoc(15));
     let sum: usize = input.split(',').map(hash).sum();
     println!("{}", sum);
 }
@@ -14,7 +14,7 @@ fn part1() {
 fn part2() {
     let mut boxes: Vec<Vec<(&str, usize)>> = vec![Vec::new(); 256];
 
-    let input = read_input_to_string(15);
+    let input = read_input_to_string(aoc(15));
     for part in input.split(',') {
         if part.contains('-') {
             let (a, _) = part.split_once('-').unwrap();

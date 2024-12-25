@@ -41,7 +41,7 @@ enum Dir {
 }
 
 fn solve(parser: fn(&str) -> (i64, Dir)) {
-    let input = read_input_to_lines(18);
+    let input = read_input_to_lines(aoc(18));
 
     let (mut row, mut col) = (0i64, 0i64);
     let mut row_to_cols = HashMap::new();
@@ -209,7 +209,7 @@ fn contains(row: &[HorizontalSegment], n: i64) -> bool {
 
 #[allow(dead_code)]
 fn part1_bucket_fill() {
-    let input = read_input_to_lines(18);
+    let input = read_input_to_lines(aoc(18));
 
     let (mut row, mut col) = (0i32, 0i32);
     let (mut min_row, mut max_row, mut min_col, mut max_col) = (0, 0, 0, 0);

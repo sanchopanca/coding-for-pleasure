@@ -8,7 +8,7 @@ fn main() {
 }
 
 fn part1() {
-    let input = read_input_to_lines(4);
+    let input = read_input_to_lines(aoc(4));
     let mut sum = 0;
     for line in input {
         let got_right = solve_card(&line) as u32;
@@ -20,7 +20,7 @@ fn part1() {
 }
 
 fn part2() {
-    let input = read_input_to_lines(4);
+    let input = read_input_to_lines(aoc(4));
     let mut counts = vec![1; input.len()];
     for (i, line) in input.iter().enumerate() {
         let got_right = solve_card(line);

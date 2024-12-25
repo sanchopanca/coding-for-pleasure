@@ -5,7 +5,7 @@ fn main() {
 }
 
 fn part1() {
-    let input = read_input_to_lines(24);
+    let input = read_input_to_lines(aoc(24));
 
     let mut hailstones = Vec::new();
 

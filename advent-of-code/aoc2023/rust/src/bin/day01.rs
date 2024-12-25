@@ -6,7 +6,7 @@ fn main() {
 }
 
 fn part1() {
-    let input = read_input_to_char_vectors(1);
+    let input = read_input_to_char_vectors(aoc(1));
     let mut sum = 0;
     for line in input {
         let first_digit = line.iter().find(|x| x.is_ascii_digit()).unwrap();
@@ -19,7 +19,7 @@ fn part1() {
 }
 
 fn part2() {
-    let input = read_input_to_lines(1);
+    let input = read_input_to_lines(aoc(1));
     let re1 = regex::Regex::new(r"(\d|one|two|three|four|five|six|seven|eight|nine)").unwrap();
     let re2 = regex::Regex::new(r"(\d|eno|owt|eerht|ruof|evif|xis|neves|thgie|enin)").unwrap();
 

@@ -9,7 +9,7 @@ fn main() {
 }
 
 fn part1() {
-    let input = read_input_to_lines(8);
+    let input = read_input_to_lines(aoc(8));
     let instructions = input[0].to_owned();
     let mut instructions = instructions.chars().cycle();
 
@@ -31,7 +31,7 @@ fn part1() {
 }
 
 fn part2() {
-    let input = read_input_to_lines(8);
+    let input = read_input_to_lines(aoc(8));
     let instructions = input[0].to_owned();
     let instructions = instructions.chars().cycle();
 

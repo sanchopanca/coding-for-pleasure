@@ -1,7 +1,7 @@
 use aoc_utils::*;
 
 fn main() {
-    let image = read_input_to_char_vectors(11);
+    let image = read_input_to_char_vectors(aoc(11));
     let empty_lines = find_empty_lines(&image);
     let empty_columns = find_empty_lines(&transpose(&image));
     let galaxies = find_galaxies(&image);

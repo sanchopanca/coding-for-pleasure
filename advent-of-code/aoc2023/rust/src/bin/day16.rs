@@ -18,12 +18,12 @@ enum Direction {
 use Direction::*;
 
 fn part1() {
-    let contraption = read_input_to_char_vectors(16);
+    let contraption = read_input_to_char_vectors(aoc(16));
     println!("{}", calculate(&contraption, 0, 0, Right));
 }
 
 fn part2() {
-    let contraption = read_input_to_char_vectors(16);
+    let contraption = read_input_to_char_vectors(aoc(16));
     let mut count = Vec::new();
 
     for row in 0..contraption.len() {

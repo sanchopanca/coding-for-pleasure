@@ -1,4 +1,4 @@
-use aoc_utils::{input, read_input_to_string};
+use aoc_utils::{aoc, input, read_input_to_string};
 
 pub struct VM {
     mem: Vec<i64>,
@@ -59,7 +59,7 @@ use opcodes::*;
 
 impl VM {
     pub fn load_program(day: u8) -> Self {
-        let data = read_input_to_string(day);
+        let data = read_input_to_string(aoc(day));
         let mem: Vec<i64> = data.split(',').map(|x| x.parse().unwrap()).collect();
 
         Self { mem, ip: 0 }

@@ -6,7 +6,7 @@ fn main() {
 }
 
 fn part1() {
-    let input = read_input_to_string(13);
+    let input = read_input_to_string(aoc(13));
     let blocks = input.split("\n\n").collect::<Vec<_>>();
 
     let mut fields = Vec::new();
@@ -31,7 +31,7 @@ fn part1() {
 }
 
 fn part2() {
-    let input = read_input_to_string(13);
+    let input = read_input_to_string(aoc(13));
     let blocks = input.split("\n\n").collect::<Vec<_>>();
 
     let mut sum = 0;

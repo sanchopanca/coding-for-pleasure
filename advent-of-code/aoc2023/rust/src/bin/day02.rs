@@ -65,7 +65,7 @@ fn part2() {
 }
 
 fn parse_input() -> Vec<Vec<Vec<(u32, Color)>>> {
-    let input = read_input_to_lines(2);
+    let input = read_input_to_lines(aoc(2));
 
     let mut games = Vec::new();
     for line in input {

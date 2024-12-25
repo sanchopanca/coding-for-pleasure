@@ -33,7 +33,7 @@ impl Direction {
 }
 
 fn part2() -> usize {
-    let map = read_input_to_char_vectors(23);
+    let map = read_input_to_char_vectors(aoc(23));
 
     // {
     //     "(x, y), (x1, y1)" => 10,

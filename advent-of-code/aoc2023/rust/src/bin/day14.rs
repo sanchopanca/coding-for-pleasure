@@ -6,7 +6,7 @@ fn main() {
 }
 
 fn part1() {
-    let mut platform = read_input_to_char_vectors(14);
+    let mut platform = read_input_to_char_vectors(aoc(14));
 
     tilt_north(&mut platform);
 
@@ -14,7 +14,7 @@ fn part1() {
 }
 
 fn part2() {
-    let mut platform = read_input_to_char_vectors(14);
+    let mut platform = read_input_to_char_vectors(aoc(14));
     let mut old_platforms = vec![platform.clone()];
     let mut i = 1;
     let (cycle_start, cycle_len) = 'search: loop {

@@ -9,7 +9,7 @@ fn main() {
 }
 
 fn part1() {
-    let mut map = read_input_to_char_vectors(21);
+    let mut map = read_input_to_char_vectors(aoc(21));
 
     let (mut start_row, mut start_col) = (0, 0);
 
@@ -28,7 +28,7 @@ fn part1() {
 }
 
 fn part2() {
-    let mut map = read_input_to_char_vectors(211);
+    let mut map = read_input_to_char_vectors(aoc(21));
 
     for (row, line) in map.iter_mut().enumerate() {
         for (col, c) in line.iter_mut().enumerate() {

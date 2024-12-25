@@ -289,7 +289,7 @@ fn process_hands<T>()
 where
     T: CreatedFromStrAndOrdered,
 {
-    let input = read_input_to_lines(7);
+    let input = read_input_to_lines(aoc(7));
     let mut hands = Vec::new();
     for line in input {
         let (hand, bid) = line.split_once(' ').unwrap();

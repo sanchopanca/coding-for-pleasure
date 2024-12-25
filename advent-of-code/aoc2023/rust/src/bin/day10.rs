@@ -37,7 +37,7 @@ impl Pipe {
 }
 
 fn main() {
-    let maze = read_input_to_char_vectors(10);
+    let maze = read_input_to_char_vectors(aoc(10));
     let mut start = (0, 0);
     for (y, row) in maze.iter().enumerate() {
         for (x, c) in row.iter().enumerate() {

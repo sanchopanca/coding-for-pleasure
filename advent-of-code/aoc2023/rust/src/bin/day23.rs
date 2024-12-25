@@ -32,7 +32,7 @@ impl Path {
 }
 
 fn part1() {
-    let map = read_input_to_char_vectors(23);
+    let map = read_input_to_char_vectors(aoc(23));
 
     let (start_row, start_column) = (0, 1);
 
@@ -88,7 +88,7 @@ fn next1(path: &Path, map: &[Vec<char>]) -> Vec<(usize, usize)> {
 }
 
 fn part2() {
-    let map = read_input_to_char_vectors(23);
+    let map = read_input_to_char_vectors(aoc(23));
 
     let (start_row, start_column) = (0, 1);
 

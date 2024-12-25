@@ -46,7 +46,7 @@ fn main() {
 }
 
 fn part1() {
-    let schematic = read_input_to_char_vectors(3);
+    let schematic = read_input_to_char_vectors(aoc(3));
     let numbers = find_numbers(&schematic);
 
     let mut sum = 0;
@@ -59,7 +59,7 @@ fn part1() {
 }
 
 fn part2() {
-    let schematic = read_input_to_char_vectors(3);
+    let schematic = read_input_to_char_vectors(aoc(3));
     let numbers = find_numbers(&schematic);
     let gears = find_gears(&schematic);
     let mut sum = 0;

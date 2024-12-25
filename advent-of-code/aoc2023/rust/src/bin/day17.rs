@@ -27,7 +27,7 @@ const M: usize = 3; // max number of steps at the same direction
 const D: usize = 4; // number of directions
 
 fn part1() {
-    let input = read_input_to_char_vectors(99);
+    let input = read_input_to_char_vectors(aoc(17));
     let mut weigts = Vec::new();
     for row in input {
         weigts.push(

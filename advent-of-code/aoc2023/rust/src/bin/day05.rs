@@ -84,7 +84,7 @@ fn part2() {
 }
 
 fn parse_input() -> (Vec<u64>, Vec<MapSet>) {
-    let input = read_input_to_string(5);
+    let input = read_input_to_string(aoc(5));
 
     let (seeds, rest) = input.split_once("\n\n").unwrap();
     let (_, seeds) = seeds.split_once(": ").unwrap();

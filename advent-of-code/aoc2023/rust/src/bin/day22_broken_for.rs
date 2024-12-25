@@ -30,7 +30,7 @@ impl Brick {
 }
 
 fn part1() {
-    let input = read_input_to_lines(22);
+    let input = read_input_to_lines(aoc(22));
 
     let mut bricks = Vec::new();
     for line in input {

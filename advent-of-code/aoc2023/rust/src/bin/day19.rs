@@ -162,7 +162,7 @@ impl Workflow {
 }
 
 fn part1() {
-    let input = read_input_to_lines(19);
+    let input = read_input_to_lines(aoc(19));
 
     let empty_at = input.iter().position(|s| s.is_empty()).unwrap();
 
@@ -262,7 +262,7 @@ impl SpaceFragment {
 }
 
 fn part2() {
-    let input = read_input_to_lines(19);
+    let input = read_input_to_lines(aoc(19));
 
     let empty_at = input.iter().position(|s| s.is_empty()).unwrap();
 

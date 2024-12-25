@@ -1,7 +1,7 @@
 use aoc_utils::*;
 
 fn main() {
-    let input = read_input_to_lines(99);
+    let input = read_input_to_lines(aoc(9));
     let mut sum1 = 0;
     let mut sum2 = 0;
     for line in input {

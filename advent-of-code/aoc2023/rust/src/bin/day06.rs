@@ -17,7 +17,7 @@ fn number_of_ways_to_beat_the_record(time: u64, distance: u64) -> u64 {
 }
 
 fn part1() {
-    let input = read_input_to_lines(6);
+    let input = read_input_to_lines(aoc(6));
 
     let times = extract_all_numbers::<u64>(&input[0]);
     let distances = extract_all_numbers::<u64>(&input[1]);
@@ -32,7 +32,7 @@ fn part1() {
 }
 
 fn part2() {
-    let input = read_input_to_lines(6);
+    let input = read_input_to_lines(aoc(6));
     let time = skewer_numbers(&extract_all_numbers::<u64>(&input[0]));
     let distance = skewer_numbers(&extract_all_numbers::<u64>(&input[1]));
 

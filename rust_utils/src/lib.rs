@@ -1,16 +1,27 @@
-use std::{fs, io::Write};
+use std::{fs, io::Write, path::Path};
 
 use regex::Regex;
 
-pub fn read_input_to_string(day: u8) -> String {
-    fs::read_to_string(format!("../input/{:02}.txt", day))
-        .unwrap()
-        .trim()
-        .to_owned()
+pub fn aoc(day: u8) -> String {
+    format!("../input/{:02}.txt", day)
 }
 
-pub fn read_input_to_lines(day: u8) -> Vec<String> {
-    fs::read_to_string(format!("../input/{:02}.txt", day))
+pub fn ec(day: u8, part: u8) -> String {
+    format!("../input/q{:02}_p{part}.txt", day)
+}
+
+pub fn read_input_to_string<P>(path: P) -> String
+where
+    P: AsRef<Path>,
+{
+    fs::read_to_string(path).unwrap().trim().to_owned()
+}
+
+pub fn read_input_to_lines<P>(path: P) -> Vec<String>
+where
+    P: AsRef<Path>,
+{
+    fs::read_to_string(path)
         .unwrap()
         .trim_end()
         .split('\n')
@@ -18,8 +29,11 @@ pub fn read_input_to_lines(day: u8) -> Vec<String> {
         .collect()
 }
 
-pub fn read_input_to_char_vectors(day: u8) -> Vec<Vec<char>> {
-    read_input_to_lines(day)
+pub fn read_input_to_char_vectors<P>(path: P) -> Vec<Vec<char>>
+where
+    P: AsRef<Path>,
+{
+    read_input_to_lines(path)
         .iter()
         .map(|s| s.chars().collect())
         .collect()
